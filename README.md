@@ -1,4 +1,9 @@
-Bhuprahari Backend (Python Flask)
+# Bhuprahari Backend (Python Flask)
+
+## Team: Indivisual
+## Member Name: Devendra Singh Kanawat
+## Tools & Technologies Used: Python & Flutter
+
 1. Introduction
 The Bhuprahari Backend is a Python Flask web service powering a land change detection and alert system. It integrates with Google Maps Static API for imagery, uses OpenCV for image comparison, manages area configurations, handles user authentication with JWTs, stores data in MySQL, and sends real-time alerts via Firebase Cloud Messaging. It acts as the core intelligence for monitoring land for unauthorized changes.
 
