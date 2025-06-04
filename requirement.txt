@@ -1,0 +1,11 @@
+Flask
+Flask-SQLAlchemy
+PyMySQL
+flask_bcrypt
+PyJWT
+requests
+APScheduler
+opencv-python
+numpy
+Flask-Cors
+firebase-admin
