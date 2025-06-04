@@ -45,7 +45,7 @@ GET /api/monitor/image-tiles/area/{area_config_id}: Retrieve historical image ti
 
 GET /api/alerts/sessions: Retrieve all past monitoring sessions. (Auth required)
 
-GET /api/alerts/sessions/{session_id}/details: Retrieve details for a specific alert session. (Auth required)
+GET /api/alerts/sessions/{session_id}/details**: Retrieve details for a specific alert session. (Auth required)
 
 4. Database Schema
 The backend uses MySQL. Tables include users, area_configs, image_tiles, alert_sessions, and alert_details. The detailed CREATE TABLE statements are available in the project files.
@@ -61,8 +61,8 @@ MySQL Server (running locally)
 Steps
 Clone/Copy Project:
 
-git clone <your-repo-url>
-cd bhuprahari_backend_python/flaskapp
+git clone https://github.com/idevendrajput/bhuprahari.git
+cd bhuprahari/flaskapp
 
 Create & Activate Virtual Environment:
 
@@ -123,11 +123,11 @@ Create bhuprahari database and bhuprahari_user with password and grant privilege
 
 Application Files:
 
-Create project directory: mkdir ~/bhuprahari_app && cd ~/bhuprahari_app
+Create project directory: mkdir ~/bhuprahari && cd ~/bhuprahari
 
-Copy flaskapp directory: scp -r /path/to/local/flaskapp your_username@your_vps_ip_address:~/bhuprahari_app/
+Copy flaskapp directory: scp -r /path/to/local/flaskapp your_username@your_vps_ip_address:~/bhuprahari/
 
-Navigate to flaskapp: cd ~/bhuprahari_app/flaskapp
+Navigate to flaskapp: cd ~/bhuprahari/flaskapp
 
 Create & Activate Venv: python3 -m venv venv && source venv/bin/activate
 
@@ -156,8 +156,8 @@ After=network.target
 [Service]
 User=your_username # Or root
 Group=www-data     # Or root
-WorkingDirectory=/home/your_username/bhuprahari_app/flaskapp
-ExecStart=/home/your_username/bhuprahari_app/flaskapp/venv/bin/gunicorn --workers 3 --bind unix:/home/your_username/bhuprahari_app/flaskapp/bhuprahari.sock -m 007 app:app
+WorkingDirectory=/home/your_username/bhuprahari/flaskapp
+ExecStart=/home/your_username/bhuprahari/flaskapp/venv/bin/gunicorn --workers 3 --bind unix:/home/your_username/bhuprahari/flaskapp/bhuprahari.sock -m 007 app:app
 Restart=always
 
 [Install]
@@ -176,7 +176,7 @@ server {
     location /api/ {
         rewrite ^/api/(.*)$ /$1 break;
         include proxy_params;
-        proxy_pass http://unix:/home/your_username/bhuprahari_app/flaskapp/bhuprahari.sock;
+        proxy_pass http://unix:/home/your_username/bhuprahari/flaskapp/bhuprahari.sock;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -185,7 +185,7 @@ server {
     }
 
     location /static_images/ {
-        alias /home/your_username/bhuprahari_app/flaskapp/captured_images/;
+        alias /home/your_username/bhuprahari/flaskapp/captured_images/;
         try_files $uri $uri/ =404;
         expires 30d;
         add_header Cache-Control "public, no-transform";
